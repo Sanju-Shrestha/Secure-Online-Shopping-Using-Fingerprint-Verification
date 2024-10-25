@@ -22,10 +22,10 @@ The project includes a secure online shopping web interface with standard e-comm
 * Email Confirmation: Upon successful verification, a confirmation email is sent automaticlly to the registered email address.
 
 ## System Architecture
-[![System Architecture](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/system-architecture.jpg)]
+![System Architecture](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/system-architecture.jpg)
 
 ## Project Flow Diagram
-[![Project Flow Diagram](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/flowchart.jpg)]
+![Project Flow Diagram](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/flowchart.jpg)
 
 ## Technologies Used
 * Backend: Python (Fingerprint Processing and Matching)
@@ -53,35 +53,30 @@ pip install -r requirements.txt
 ## Project Modules
 1. Fingerprint Preprocessing
 
-File: trials/trial_01_preprocessing.py
+- File: trials/trial_01_preprocessing.py
+- Converts fingerprint images to grayscale, applies Gaussian blur, and uses thresholding and skeletonization for a binarized output that enhances feature extraction.
 
-Converts fingerprint images to grayscale, applies Gaussian blur, and uses thresholding and skeletonization for a binarized output that enhances feature extraction.
-
-[![Fingerprint Verification](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/image_processing.png)]
+![Fingerprint Verification](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/image-processing.png)
 
 2. Feature Extraction
 
-File: trials/trial_02_feature_extraction.py
-
-Extracts minutiae points, including ridge endings and bifurcations, from the skeletonized fingerprint image.
+- File: trials/trial_02_feature_extraction.py
+- Extracts minutiae points, including ridge endings and bifurcations, from the skeletonized fingerprint image.
 
 3. Fingerprint Matching
 
-File: trials/trial_03_fingerprint_matching.py
-
-Implements minutiae matching using Euclidean distances between minutiae sets. If distances fall below a threshold, the fingerprints are considered a match.
+- File: trials/trial_03_fingerprint_matching.py
+- Implements minutiae matching using Euclidean distances between minutiae sets. If distances fall below a threshold, the fingerprints are considered a match.
 
 4. Fingerprint Verification
 
-File: trials/trial_04_fingerprint_verification.py
-
-Verifies new fingerprints by comparing them against stored fingerprint data. Authorized users are granted access only after successful verification.
+- File: trials/trial_04_fingerprint_verification.py
+- Verifies new fingerprints by comparing them against stored fingerprint data. Authorized users are granted access only after successful verification.
 
 5. Testing
 
-File: trials/trial_05_test.py
-
-Runs test cases to ensure accurate verification and security.
+- File: trials/trial_05_test.py
+- Runs test cases to ensure accurate verification and security.
 
 ## Database Structure
 
@@ -92,30 +87,30 @@ MySQL is used to store sensitive data securely, including:
 ## Procedure
 
 * Step 1: Open the website ‘BuyO Shop’
-[![Step 1](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/step1.png)]
+![Step 1](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/step1.png)
 
 * Step 2: For the first time user, register in the website with unique username, email address and confidential password
-[![Step 2](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/step2.png)]
+![Step 2](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/step2.png)
 
 * Step 3: If already registered, login to the website with the registered username, email address and password
-[![Step 3](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/step3.png)]
+![Step 3](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/step3.png)
 
 * Step 4: Select the payment option: online or COD
-[![Step 4](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/step4.png)]
+![Step 4](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/step4.png)
 
 * Step 5: If online transaction is selected, enter the required bank details
-[![Step 5](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/step5.png)]
+![Step 5](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/step5.png)
 
 *Note: Fingerprint registration and steps to store password done by the banks' side are not mentioned*
 
 * Step 6:Enter the same password used to store the fingerprint samples for verification
-[![Step 6](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/step10.png)]
+![Step 6](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/step10.png)
 
 * Step 7: Place the finger on the device for verification
-[![Step 7](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/step11.png)]
+![Step 7](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/step11.png)
 
 * Step 8: The fingerprint brightness can be also be adjusted
-[![Step 8](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/step12.png)]  
+![Step 8](https://github.com/Sanju-Shrestha/Secure-Online-Shopping-Using-Fingerprint-Verification/blob/6b05227730d75d8b0d5423436eef113f3f3788e2/img/step12.png)  
 
 ## Conclusion
 This project successfully demonstrates a secure and user-friendly online shopping experience by replacing OTP verification with fingerprint authentication. The system effectively addresses issues related to OTP-based authentication and offers a more reliable alternative for secure online transactions.
