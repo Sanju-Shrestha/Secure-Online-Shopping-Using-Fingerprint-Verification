@@ -22,6 +22,7 @@ var/
 wheels/
 share/python-wheels/
 *.egg-info/
+secure_online_shopping_using_fingerprint_verification.egg-info/
 .installed.cfg
 *.egg
 MANIFEST
@@ -129,6 +130,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.buyoshop
+buyoshop/
 
 # Spyder project settings
 .spyderproject

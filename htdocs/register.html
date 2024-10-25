@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html> 
+<OBJECT classid="CLSID:E730808D-30BE-32FE-B057-0B0EA7F79060" 
+        height=0 width=0 
+        id="objNBioBSP" 
+        name="objNBioBSP"> 
+
+</OBJECT>
+
+<form action='regist.asp' name='MainForm' method='post' OnSubmit='return regist();'>
+<input type=hidden name='FIRTextData'> 
+ User ID : <input type=text name=UserID size=20><p> 
+ <input type=submit value=' Click here to register your fingerprint '>
+ </form>
+
+<script lang='javascript'>
+ function regist() { 
+					var err, payload     // Check ID is not NULL  
+					if ( document.MainForm.UserID.value == '' )  
+					{     
+						alert('Please enter user id !');
+						return(false);
+						}   
+						
+					try // Exception handling 
+					{    
+					// Open device. [AUTO_DETECT]  
+					// You must open device before enroll. 
+					DEVICE_FDU01 = 2;  
+					DEVICE_FDU11 = 4;    
+					DEVICE_AUTO_DETECT = 255;  
+
+					var objDevice = document.objNBioBSP.Device;  
+					var objExtraction = document.objNBioBSP.Extraction;    
+					
+					objDevice.Open(DEVICE_AUTO_DETECT);  
+					
+					err = objDevice.ErrorCode; // Get error code  
+					if ( err != 0 )  // Device open failed     
+						{       
+								alert('Device open failed !');  
+								return(false);     
+						}  
+								
+								// Enroll user's fingerprint. 
+						objExtraction.Enroll(payload);   
+						err = objExtraction.ErrorCode; // Get error code 
+								if ( err != 0 )  // Enroll failed  
+								{        
+									alert('Registration failed ! Error Number : [' + err + ']');  
+									objDevice.Close(DEVICE_AUTO_DETECT);     
+									return(false);  
+								}      
+								else // Enroll success    
+									{ 
+										// Get text encoded FIR data from NBioBSP module.  
+										document.MainForm.FIRTextData.value = objExtraction.TextEncodeFIR; 
+										alert('Registration success !');
+									}      
+										// Close device. [AUTO_DETECT]   
+										objDevice.Close(DEVICE_AUTO_DETECT);  
+										objExtraction = 0; 
+										objDevice = 0;  
+									}   
+									catch(e)   
+									{ 
+										alert(e.message);   
+										return(false); 
+									}
+									
+									// Submit main form   
+									document.MainForm.submit(); 
+									return(true);
+									} 
+</script>
+	 
+	<% 
+	' Declaration variable 
+	dim FS, objFile 
+	dim curPath, tmpPath 
+	dim UserID, FIRTextData 
+
+	UserID = Request.Form("UserID") 
+	FIRTextData = Request.Form("FIRTextData") 
+' Save fir data to file 
+' Get current path 
+tmpPath = Request.ServerVariables("PATH_TRANSLATED") 
+curPath = left(tmpPath, InStrRev(tmpPath, "\")) & "db\" 
+' Set filename using UserID 
+SET FS = Server.CreateObject("Scripting.FileSystemObject")
+ SET objFile = FS.CreateTextFile( curPath & UserID & ".fir", true) 
+objFile.WriteLine UserID
+ objFile.WriteLine len(FIRTextData)
+ objFile.WriteLine FIRTextData
+ 
+objFile.Close 
+SET FS = nothing 
+%> 
+ 
+	
+	
+	
+	</html>

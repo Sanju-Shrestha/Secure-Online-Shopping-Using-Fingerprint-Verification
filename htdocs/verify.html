@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<OBJECT classid="CLSID:F66B9251-67CA-4d78-90A3-28C2BFAE89BF"   
+            height=0 width=0
+            id="objNBioBSP" 
+            name="objNBioBSP"> 
+
+	</OBJECT>
+
+	<form action='verify.asp' name='MainForm' method='post' OnSubmit='return capture();'> 
+    <input type=hidden name='FIRTextData'>
+    User ID : <input type=text name=UserID size=20><p>
+    <input type=submit value=' Click here to verification with your fingerprint '>
+    </form>
+
+
+<script lang='javascript'>   
+
+		function capture()
+			{ 
+				var err   
+				// Check ID is not NULL 
+				if ( document.MainForm.UserID.value == '' ) 
+					{ 
+						alert('Please enter user id !'); 
+						return(false);
+					}   
+				try // Exception handling 
+					{
+						// Open device. [AUTO_DETECT] 
+						// You must open device before capture. 
+						DEVICE_FDU01 = 2; 
+						DEVICE_FDU11 = 4; 
+						DEVICE_AUTO_DETECT = 255;  
+						
+						var objDevice = document.objNBioBSP.Device;    
+						var objExtraction = document.objNBioBSP.Extraction;         
+						
+						objDevice.Open(DEVICE_AUTO_DETECT);    
+						err = objDevice.ErrorCode; // Get error code  
+   
+						if ( err != 0 )   // Device open failed   
+							{       
+								alert('Device open failed !');   
+								return(false);  
+								}        // Enroll user's fingerprint. 
+ 
+ 
+								objExtraction.Capture();   
+								err = objExtraction.ErrorCode; // Get error code     
+								if ( err != 0 )   // Enroll failed    
+									{ 
+										alert('Capture failed ! Error Number : [' + err + ']'); 
+										objDevice.Close(DEVICE_AUTO_DETECT);       
+										return(false);    
+									}  
+								else // Capture success
+									{
+									// Get text encoded FIR data from NBioBSP module.  
+										document.MainForm.FIRTextData.value = objExtraction.TextEncodeFIR;    
+										alert('Capture success !');  
+									}      
+									// Close device. [AUTO_DETECT]   
+									objDevice.Close(DEVICE_AUTO_DETECT);  
+									objExtraction = 0; 
+									objDevice = 0;
+									} // end try 
+									catch(e) 
+										{
+											alert(e.message);  
+											return(false); 
+										}   
+										// Submit main form 
+										document.MainForm.submit(); 
+										return(true);
+										} 
+</script>	
+   
+   <% 
+      ‘ Read FIR data from file or DB.  
+		Set objNBioBSP = Server.CreateObject("NBioBSPCOM.NBioBSP") 
+		Set objMatching = objNBioBSP.Matching   
+		' Verify Match 
+		' FIRTextData is Caputured FIR 
+		' fFIRTextData is FIR from file 
+		Call objMatching.VerifyMatch(CStr(FIRTextData), CStr(fFIRTextData))   
+		if objMatching.MatchingResult = 0 then  
+		        ‘ Verification failed !!! 
+		else  
+				‘ Verification success !!!
+				end if   
+				
+				' Release NBioBSP object 
+				Set objMatching = nothing 
+				Set objNBioBSP = nothing 
+	%>
+</html>
